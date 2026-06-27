@@ -2071,30 +2071,22 @@
 
 </div><!-- body-wrap t-synth -->
 </div><!-- tab-panel t-synth -->
-
 <script>
   function showTab(tabId) {
-    var panels = document.querySelectorAll('.tab-panel');
-    for (var i = 0; i < panels.length; i++) {
-      panels[i].classList.remove('active');
-    }
-    var target = document.getElementById(tabId);
-    if (target) {
-      target.classList.add('active');
-    }
+    document.querySelectorAll('.tab-panel').forEach(el => el.classList.remove('active'));
+    var t = document.getElementById(tabId);
+    if (t) t.classList.add('active');
 
-    var buttons = document.querySelectorAll('.tab-btn');
-    for (var j = 0; j < buttons.length; j++) {
-      buttons[j].classList.remove('active');
-    }
-    var clickedBtn = document.querySelector('.tab-btn[onclick*="' + tabId + '"]');
-    if (clickedBtn) {
-      clickedBtn.classList.add('active');
-    }
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.classList.remove('active');
+      var fn = btn.getAttribute('onclick') || '';
+      if (fn.includes("('" + tabId + "')")) {
+        btn.classList.add('active');
+      }
+    });
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>
-
 </body>
 </html>
